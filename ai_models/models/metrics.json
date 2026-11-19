@@ -1,0 +1,144 @@
+{
+  "data_note": "All training/evaluation rows are generated synthetic engineering demo data, not real sensor data.",
+  "models": {
+    "accident": {
+      "accuracy": 0.9866666666666667,
+      "class_counts": {
+        "Normal movement": 1879,
+        "Possible accident": 521
+      },
+      "confusion_matrix": [
+        [
+          463,
+          7
+        ],
+        [
+          1,
+          129
+        ]
+      ],
+      "confusion_matrix_label_order": [
+        "Normal movement",
+        "Possible accident"
+      ],
+      "dataset_file": "accident_detection.csv",
+      "dataset_rows": 2400,
+      "f1_macro": 0.980679750768785,
+      "feature_names": [
+        "accel_x",
+        "accel_y",
+        "accel_z",
+        "gyro_x",
+        "gyro_y",
+        "gyro_z"
+      ],
+      "labels": [
+        "Normal movement",
+        "Possible accident"
+      ],
+      "model": "sklearn Pipeline(SimpleImputer, StandardScaler, RandomForestClassifier)",
+      "model_file": "accident_model.joblib",
+      "precision_macro": 0.9731871196754563,
+      "recall_macro": 0.9887070376432079,
+      "test_rows": 600,
+      "test_support_by_label": {
+        "Normal movement": 470,
+        "Possible accident": 130
+      },
+      "train_rows": 1800
+    },
+    "driving": {
+      "accuracy": 1.0,
+      "class_counts": {
+        "Risky driving": 865,
+        "Safe": 1535
+      },
+      "confusion_matrix": [
+        [
+          384,
+          0
+        ],
+        [
+          0,
+          216
+        ]
+      ],
+      "confusion_matrix_label_order": [
+        "Safe",
+        "Risky driving"
+      ],
+      "dataset_file": "driver_behavior.csv",
+      "dataset_rows": 2400,
+      "f1_macro": 1.0,
+      "feature_names": [
+        "speed_kmh",
+        "acceleration_longitudinal",
+        "brake_intensity",
+        "harsh_brake_count"
+      ],
+      "labels": [
+        "Safe",
+        "Risky driving"
+      ],
+      "model": "sklearn Pipeline(SimpleImputer, StandardScaler, RandomForestClassifier)",
+      "model_file": "driving_model.joblib",
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "test_rows": 600,
+      "test_support_by_label": {
+        "Risky driving": 216,
+        "Safe": 384
+      },
+      "train_rows": 1800
+    },
+    "route": {
+      "accuracy": 0.9983333333333333,
+      "class_counts": {
+        "Normal route": 1822,
+        "Route deviation": 578
+      },
+      "confusion_matrix": [
+        [
+          456,
+          0
+        ],
+        [
+          1,
+          143
+        ]
+      ],
+      "confusion_matrix_label_order": [
+        "Normal route",
+        "Route deviation"
+      ],
+      "dataset_file": "route_anomaly.csv",
+      "dataset_rows": 2400,
+      "f1_macro": 0.997710194595296,
+      "feature_names": [
+        "distance_from_route_m",
+        "heading_delta_deg",
+        "speed_kmh",
+        "route_progress"
+      ],
+      "labels": [
+        "Normal route",
+        "Route deviation"
+      ],
+      "model": "sklearn Pipeline(SimpleImputer, StandardScaler, RandomForestClassifier)",
+      "model_file": "route_model.joblib",
+      "precision_macro": 0.9989059080962801,
+      "recall_macro": 0.9965277777777778,
+      "test_rows": 600,
+      "test_support_by_label": {
+        "Normal route": 456,
+        "Route deviation": 144
+      },
+      "train_rows": 1800
+    }
+  },
+  "preprocessing": "median SimpleImputer then StandardScaler in a fitted sklearn Pipeline",
+  "provenance": "synthetic_training_data",
+  "random_seed": 20261118,
+  "split": "stratified train_test_split",
+  "test_size": 0.25
+}

@@ -1,0 +1,18 @@
+{
+  "name": "saferoute",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "dev": "pnpm --filter saferoute-frontend dev",
+    "build": "pnpm --filter saferoute-frontend build",
+    "typecheck": "pnpm --filter saferoute-frontend typecheck",
+    "api": ".venv/bin/python -m backend.app",
+    "train": ".venv/bin/python -m ai_models.train_all",
+    "chain": "pnpm --filter saferoute-chain node",
+    "deploy:local": "pnpm --filter saferoute-chain deploy:local",
+    "test:chain": "pnpm --filter saferoute-chain test",
+    "test:api": ".venv/bin/python -m pytest backend/tests ai_models/tests iot/test_simulate.py -q",
+    "test": "CI=1 pnpm test:chain && pnpm test:api && pnpm typecheck"
+  }
+}

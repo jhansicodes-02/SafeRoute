@@ -1,0 +1,17 @@
+{
+  "name": "saferoute-chain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SafeRoute local prototype blockchain registry",
+  "scripts": {
+    "node": "hardhat node",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "test": "hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "3.0.8",
+    "chai": "4.5.0",
+    "ethers": "6.13.5",
+    "hardhat": "2.22.17"
+  }
+}

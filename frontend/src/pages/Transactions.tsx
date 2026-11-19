@@ -1,0 +1,15 @@
+import { useCallback, useEffect, useState } from 'react';
+import { ArrowUpRight, Blocks, RefreshCw } from 'lucide-react';
+import { api } from '../api/client';
+import { EmptyState, formatTime, humanize, PageIntro, shortHash, StatusPill, Surface, SurfaceHead } from '../components/common';
+import type { ChainStatus, ChainTransaction } from '../types';
+
+type TransactionResponse = { transactions: ChainTransaction[]; chain: ChainStatus; notice: string };
+
+export function Transactions() {
+  const [data, setData] = useState<TransactionResponse | null>(null);
+  const [error, setError] = useState('');
+  const refresh = useCallback(() => api<TransactionResponse>('/transactions').then(setData).catch((cause) => setError(cause.message)), []);
+  useEffect(() => { void refresh(); }, [refresh]);
+  return <div className="page-stack"><PageIntro eyebrow="RECORDS / TRANSACTION HISTORY" title="Receipts from the chain." description="This history is populated only from mined transaction receipts returned by the configured RPC provider." action={<button className="button button-secondary" onClick={() => void refresh()}><RefreshCw size={15} />Refresh</button>} />{error ? <div className="notice-banner notice-error" role="alert">{error}</div> : null}<div className="transaction-status"><span className="transaction-status-icon"><Blocks size={18} /></span><div><strong>{data?.chain.available ? `Hardhat local chain · ${data.chain.chain_id}` : 'No active contract connection'}</strong><p>{data?.chain.message || 'Checking local chain status…'}</p></div><StatusPill tone={data?.chain.available ? 'good' : 'warn'}>{data?.chain.available ? 'CONNECTED' : 'OFFLINE'}</StatusPill></div><Surface><SurfaceHead title="Mined transactions" detail={`${data?.transactions.length ?? 0} receipt${data?.transactions.length === 1 ? '' : 's'} in the local database`} />{data?.transactions.length ? <div className="table-scroll"><table><thead><tr><th>EVENT</th><th>RECORD</th><th>TRANSACTION HASH</th><th>BLOCK</th><th>CHAIN ID</th><th>BLOCK TIME</th></tr></thead><tbody>{data.transactions.map((tx) => <tr key={tx.tx_hash}><td><span className="event-label"><span className="event-dot" />{humanize(tx.event_type)}</span></td><td><strong className="mono">{tx.record_id}</strong></td><td><code className="mono transaction-hash" title="Local Hardhat hash; no public explorer is configured">{shortHash(tx.tx_hash, 16)}</code></td><td><strong>#{tx.block_number}</strong></td><td>{tx.chain_id}</td><td>{formatTime(tx.timestamp)}</td></tr>)}</tbody></table></div> : <EmptyState title="No transaction receipts yet" detail={data?.chain.available ? 'Register a vehicle, start a trip, or record a checkpoint to create genuine transactions.' : 'Start the local Hardhat node and deploy SafeRouteRegistry. Application-only records never appear as chain receipts.'} />}</Surface><div className="info-strip"><span className="info-icon"><ArrowUpRight size={17} /></span><span>{data?.notice || 'No fake transaction records are generated.'} These hashes belong to the configured local chain and are not public Ethereum explorer links.</span></div></div>;
+}

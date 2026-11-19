@@ -1,0 +1,30 @@
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+# Local credentials and cryptographic key material
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+secrets.json
+backend/data/*.db
+backend/evidence/*
+!backend/evidence/.gitkeep
+backend/deployment.json
+blockchain/artifacts/
+blockchain/cache/
+blockchain/typechain-types/
+frontend/dist/
+datasets/generated/
+.DS_Store
+.vite/
+
+# TypeScript incremental compiler state
+*.tsbuildinfo
